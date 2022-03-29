@@ -7,6 +7,7 @@ const ACTIONS = {
 
 const actions = {
     incrementClicked(context) {
+        console.log('action used');
         context.commit(MUTATIONS.INCREMENT);
     },
     switchSpinnerAsync({commit}, payload) {

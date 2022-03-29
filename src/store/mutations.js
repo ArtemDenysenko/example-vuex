@@ -8,6 +8,7 @@ const MUTATIONS = {
 
 const mutations = {
     [MUTATIONS.INCREMENT] (state) {
+        console.log('mutation used');
         state[STATE_KEYS.COUNT] = state[STATE_KEYS.COUNT] + 1;
     },
     [MUTATIONS.CHANGE_NAME] (state, name) {

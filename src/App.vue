@@ -54,7 +54,7 @@
               <button
                       type="button"
                       class="btn btn-primary"
-                      v-on:click="increment()"
+                      v-on:click="add()"
               >
                 Count: <span class="badge bg-secondary">{{count}}</span>
               </button>
