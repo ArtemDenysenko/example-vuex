@@ -1,41 +1,18 @@
 <script>
-  import { STATE_KEYS } from './store/state';
-  import { store } from './store';
-  import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
-  import { MUTATIONS } from './store/mutations';
-  import { ACTIONS } from './store/actions';
 
   export default {
     data() {
       return {
-        seconds: 0,
-        newName: '',
+        message: 'Default',
+        count: 0,
       }
     },
     computed: {
-      count() {
-        return store.state[STATE_KEYS.COUNT];
-      },
-      ...mapState({
-        username: (state) => state[STATE_KEYS.USERNAME],
-        showSpinner: 'showSpinner',
-      }),
-      ...mapGetters([
-        'spinnerLabel',
-      ])
+
     },
     methods: {
-      ...mapMutations({
-        increment: 'increment'
-      }),
-      ...mapActions({
-        add: 'incrementClicked'
-      }),
-      setName() {
-        store.commit(MUTATIONS.CHANGE_NAME, this.newName);
-      },
-      switchSpinner() {
-        store.dispatch(ACTIONS.SWITCH_SPINNER_ASYNC, {seconds: this.seconds});
+      sendMessage() {
+        console.log(this.message);
       }
     }
   }
@@ -47,66 +24,32 @@
       <div class="row App_main">
 
         <div class="App_part col pr-1">
-          <h2>Vuex Simple tests</h2>
+          <h2>Child Frame</h2>
           <div class="row pt-3">
             <div class="col">
-              <h3>Use Mutation:</h3>
-              <button
-                      type="button"
-                      class="btn btn-primary"
-                      v-on:click="add()"
-              >
-                Count: <span class="badge bg-secondary">{{count}}</span>
-              </button>
+              <h3>Count From Parent:</h3>
+              Count: <span class="badge bg-secondary">{{count}}</span>
             </div>
           </div>
 
           <div class="row pt-3">
             <div class="col">
-              <h3>Use Mutation (with payload):</h3>
-              <div class="mb-3">
-                <label for="name" class="form-label">User name is: {{username}}</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        placeholder="Enter name"
-                        v-model="newName"
-                >
-              </div>
-              <div class="align-items-center">
-                <button
-                        class="btn btn-primary"
-                        type="button"
-                        v-on:click="setName()"
-                >Add</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="row pt-3">
-            <div class="col">
-              <h3>Use Async Action:</h3>
+              <h3>Send Message:</h3>
               <div class="d-flex align-items-center">
 
                 <button
                         class="btn btn-primary"
                         type="button"
-                        v-on:click="switchSpinner()"
-                >{{ spinnerLabel }} after:</button>
+                        v-on:click="sendMessage()"
+                >Send</button>
                 <input
-                        v-model="seconds"
+                        v-model="message"
                         width="100px"
-                        type="number"
+                        type="text"
                         class="form-control spinner-input"
                         id="time"
                         placeholder="seconds"
                 >
-                <div v-if="showSpinner" class="spinner">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
