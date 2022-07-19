@@ -7,12 +7,18 @@
         count: 0,
       }
     },
-    computed: {
-
+    mounted() {
+      window.onmessage = (message) => {
+        if(message.data === 'increase-count') {
+          this.count = this.count + 1;
+        }
+      }
     },
     methods: {
       sendMessage() {
-        console.log(this.message);
+        const event = 'child-increase-count';
+        const targetOrigin = 'http://localhost:4200';
+        window.parent.postMessage(event, targetOrigin);
       }
     }
   }
@@ -34,22 +40,14 @@
 
           <div class="row pt-3">
             <div class="col">
-              <h3>Send Message:</h3>
+              <h3>Send Message To Parent:</h3>
               <div class="d-flex align-items-center">
 
                 <button
                         class="btn btn-primary"
                         type="button"
                         v-on:click="sendMessage()"
-                >Send</button>
-                <input
-                        v-model="message"
-                        width="100px"
-                        type="text"
-                        class="form-control spinner-input"
-                        id="time"
-                        placeholder="seconds"
-                >
+                >Send to Parent</button>
               </div>
             </div>
           </div>
